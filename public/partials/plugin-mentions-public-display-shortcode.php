@@ -34,8 +34,8 @@
 					// Retrieves user info by user ID.
 					$user_infos = get_userdata(1); 
 					//var_dump($user_infos)
-					$user_courriel = $user_infos->user_email;
-					$user_courriel = str_replace( '@', ' (signe bizarre) ', $user_courriel );
+					$user_mail = $user_infos->user_email;
+					$user_mail = str_replace( '@', ' (signe bizarre) ', $user_mail );
 				?>
 
 					<p>
@@ -49,8 +49,10 @@
 						Ce site est hébergé par :
 						<span id="domain"></span>
 						<script>
-							let hostname = location.hostname;
-							document.getElementById( 'domain' ).innerHTML =  hostname;
+							// https://developer.mozilla.org/en-US/docs/Web/API/Document/domain
+							const currentDomain = document.domain;
+							console.log( currentDomain );
+							document.getElementById( 'domain' ).innerHTML =  currentDomain;
 						</script>
 					</p>
 
