@@ -42,7 +42,7 @@
 						Ce site est édité par :
 						<?php echo $user_infos->first_name .  " " . $user_infos->last_name; ?><br>
 						Courriel: 
-						<?php echo $user_courriel; ?>
+						<?php echo $user_mail; ?>
 					</p>
 
 					<p>
