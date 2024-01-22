@@ -132,101 +132,29 @@ class Plugin_Mentions_Public {
 
 	}
 
-	// https://www.youtube.com/watch?v=Rl3HR_vf0Rc
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public static function plugin_templates_array() {
-
-		$temps = [];
-		$temps['mentions'] = 'Template Mentions';
-		//var_dump( $temps ); die(); // OK
-
-		return $temps;
-	}
-
-	// https://www.youtube.com/watch?v=Rl3HR_vf0Rc
-	/**
-	 * Undocumented function
-	 *
-	 * @param [type] $page_templates
-	 * @param [type] $theme
-	 * @param [type] $post
-	 * @return void
-	 */
-	public function plugin_templates_register( $page_templates, $theme, $post ) {
-
-		$templates = Plugin_Mentions_Public::plugin_templates_array();
-		//var_dump( $templates ); die(); //OK
-		
-		foreach ($templates as $key => $value) {
-			$page_templates[$key] = $value;
-		}
-		return $page_templates;
-		
-	}
-
-	// https://www.youtube.com/watch?v=Rl3HR_vf0Rc
-	/**
-	 * Undocumented function
-	 *
-	 * @param [type] $template
-	 * @return void
-	 */
-	public function plugin_templates_select( $template ) {
-
-		global $post, $wp_query, $wpdb;
-		//var_dump( $post->ID ); // OK
-
-		// https://developer.wordpress.org/reference/functions/get_permalink/
-		// get_permalink( int|WP_Post $post, bool $leavename = false ): string|false
-		// Retrieves the full permalink for the current post or post ID.
-		$page_template_slug = basename( get_permalink() );
-		//var_dump( $page_template_slug ); // OK
-
-		$templates = Plugin_Mentions_Public::plugin_templates_array();
-		//var_dump( $templates ); // Ok
-
-		if ( isset( $templates[$page_template_slug] ) ) {
-			$template = PLUGIN_MENTIONS_PATH . 'public/partials/plugin-mentions-public-display-' . $page_template_slug . '.php';
-		}
-
-		return $template;
-	}
-
 	/**
 	 * Load shortcode
-	 * Method called by class-plugin-json
+	 * 
 	 * @return void
 	 */
-	public function plugin_load_shortcode() {
+	public function plugin_mentions_display() {
 
-		global $post;
-		//var_dump( $post ); // OK
+		// https://www.php.net/manual/fr/function.ob-start.php
+		// ob_start — Enclenche la temporisation de sortie
+		ob_start();
 
-		if ( $post->post_name == 'mentions' ) {			
-			//var_dump( $post ); // OK
+		// https://www.php.net/manual/fr/function.require-once.php
+		require_once( PLUGIN_MENTIONS_PATH . 'public/partials/plugin-mentions-public-display.php' );
 
-			// https://www.php.net/manual/fr/function.ob-start.php
-			// ob_start — Enclenche la temporisation de sortie
-			ob_start();
+		// https://www.php.net/manual/fr/function.ob-get-contents.php
+		// ob_get_contents — Retourne le contenu du tampon de sortiee
+		$template = ob_get_contents();
 
-			// https://www.php.net/manual/fr/function.require-once.php
-			require_once( PLUGIN_MENTIONS_PATH . 'public/partials/plugin-mentions-public-display-shortcode.php' );
+		// https://www.php.net/manual/fr/function.ob-end-clean.php
+		// ob_end_clean — Détruit les données du tampon de sortie et éteint la temporisation de sortie
+		ob_end_clean();
 
-			// https://www.php.net/manual/fr/function.ob-get-contents.php
-			// ob_get_contents — Retourne le contenu du tampon de sortie
-			$template = ob_get_contents();
-
-			// https://www.php.net/manual/fr/function.ob-end-clean.php
-			// ob_end_clean — Détruit les données du tampon de sortie et éteint la temporisation de sortie
-			ob_end_clean();
-
-			echo( $template );
-		}
-
+		echo( $template );
 	}
 
 }

@@ -30,13 +30,11 @@ class Plugin_Mentions_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-		
+
 		/**
 		 * Delete page on plugin deactivate
 		 * @link       https://github.com/thierrycharriot
 		 * @since      0.0.1
-		 */ 
-		/**
          * https://developer.wordpress.org/reference/classes/wpdb/
          */
 		global $wpdb;

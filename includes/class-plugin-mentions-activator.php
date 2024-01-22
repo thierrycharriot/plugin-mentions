@@ -37,6 +37,7 @@ class Plugin_Mentions_Activator {
 		$create_page = array(
 			'post_author'	=> 1,
 			'post_title'    => 'Mentions légales',
+			'post_content'	=> '[afficher_mentions]',
 			'post_status'   => 'publish',
 			'post_type'		=> 'page',
 			'post_name'    	=> 'mentions'
